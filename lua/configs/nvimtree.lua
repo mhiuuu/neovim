@@ -28,7 +28,11 @@ return {
 					open = "",
 					symlink = "",
 				},
-				git = { unmerged = "" },
+				git = {
+					unmerged = "",
+					unstaged = "",
+					deleted = "",
+				},
 			},
 		},
 	},

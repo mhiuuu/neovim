@@ -24,44 +24,20 @@ M.setup = function()
 			setup_lsp_keymaps(event.buf)
 		end,
 	})
-
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 	-- LSP servers setup
 	local servers = {
 		ts_ls = {},
-		ruff = {},
 		pylsp = {},
-		lua_ls = {
-			settings = {
-				Lua = {
-					completion = {
-						callSnippet = "Replace",
-					},
-					runtime = { version = "LuaJIT" },
-					workspace = {
-						checkThirdParty = false,
-						library = {
-							"${3rd}/luv/library",
-							unpack(vim.api.nvim_get_runtime_file("", true)),
-						},
-					},
-					diagnostics = { disable = { "missing-fields" } },
-					format = {
-						enable = false,
-					},
-				},
-			},
-		},
+		lua_ls = {},
 		html = { filetypes = { "html", "twig", "hbs" } },
 		cssls = {},
 		tailwindcss = {},
 		dockerls = {},
-		sqlls = {},
-		terraformls = {},
 		jsonls = {},
-		yamlls = {},
+		clangd = {},
 	}
 
 	-- Mason setup
