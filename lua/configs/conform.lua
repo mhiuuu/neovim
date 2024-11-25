@@ -7,8 +7,8 @@ M.setup = function()
 			python = { "autopep8" },
 			rust = { "rustfmt", lsp_format = "fallback" },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
-			c = { "clang-format" },
-			cpp = { "clang-format" },
+			c = { "my_formatter" },
+			cpp = { "my_formatter" },
 			css = { "prettier" },
 			java = { "google-java-format" },
 			html = { "prettier" },
@@ -17,6 +17,12 @@ M.setup = function()
 			-- These options will be passed to conform.format()
 			timeout_ms = 500,
 			lsp_format = "fallback",
+		},
+		formatters = {
+			my_formatter = {
+				command = "clang-format",
+				args = '--style="{BasedOnStyle: llvm, IndentWidth: 4}"',
+			},
 		},
 	})
 end

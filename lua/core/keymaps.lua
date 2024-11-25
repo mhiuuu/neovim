@@ -16,7 +16,7 @@ map({ "n", "v", "i" }, "<C-s>", "<cmd>w<CR>", { desc = "general save file" })
 map({ "n", "v", "i" }, "<C-q>", "<cmd>q!<CR>", { desc = "general quit file" })
 map({ "n", "v", "i" }, "<C-z>", "<cmd>u<CR>", { desc = "general undo changes" })
 map({ "n", "v", "i" }, "<C-a>", "ggVG", { desc = "general select all" })
-map({ "n", "v", "i" }, "<C-V>", "+p", { desc = "general paste from system clipboard" })
+-- map({ "n", "v", "i" }, "<C-V>", "+p", { desc = "general paste from system clipboard" })
 map("v", "<C-c>", "y", { desc = "general copy to system clipboard" })
 map({ "n", "v" }, "d", '"_d', { noremap = true })
 map("n", "<leader>fm", function()
@@ -103,6 +103,17 @@ map({ "n", "t" }, "<A-i>", function()
 	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "terminal toggle floating term" })
 
--- Multi cursors
+-- multi cursors
 map({ "n", "i", "x" }, "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", { desc = "Multi cursor and move up" })
 map({ "n", "i", "x" }, "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", { desc = "Multi cursor and move down" })
+
+-- Menu keymap
+map("n", "<C-t>", function()
+	require("menu").open("default")
+end, { desc = "Open menu with default options" })
+
+-- Mouse right-click menu integration
+map("n", "<RightMouse>", function()
+	local options = vim.bo.filetype == "NvimTree" and "nvimtree" or "default"
+	require("menu").open(options, { mouse = true })
+end, { desc = "Open menu with context-specific options" })

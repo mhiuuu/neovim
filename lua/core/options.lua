@@ -3,7 +3,7 @@ vim.wo.number = true
 vim.wo.signcolumn = "yes"
 
 -- General settings for usability
-vim.o.relativenumber = true  -- Use relative line numbers
+vim.o.relativenumber = true -- Use relative line numbers
 vim.o.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim
 vim.o.mouse = "a" -- Enable mouse support
 vim.o.wrap = true -- Wrap long lines
