@@ -119,7 +119,6 @@ return {
 				},
 				config = function(_, opts)
 					require("nvim-autopairs").setup(opts)
-
 					-- setup cmp for autopairs
 					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 					require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -134,6 +133,7 @@ return {
 			require("configs.cmp")
 		end,
 	},
+
 	-- Unnecessary Utils, but I like using it
 	{
 		"stevearc/conform.nvim",
@@ -142,15 +142,16 @@ return {
 			require("configs.conform")
 		end,
 	},
+
 	{
 		"folke/which-key.nvim",
-		cmd = { "WhichKey" },
-	},
-	{
-		"VonHeikemen/fine-cmdline.nvim",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		cmd = { "FineCmdline" },
-	},
+		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+		cmd = "WhichKey",
+		opts = function()
+			dofile(vim.g.base46_cache .. "whichkey")
+			return {}
+		end,
+	}, -- {
 	{
 		"folke/todo-comments.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -158,14 +159,23 @@ return {
 	},
 	{
 		"utilyre/barbecue.nvim",
-		name = "barbecue",
-		version = "*",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"SmiteshP/nvim-navic",
 		},
+		opts = {},
 	},
 	{
-		"brenton-leighton/multiple-cursors.nvim",
-		version = "*",
+		"tpope/vim-surround",
+	},
+	{
+		"karb94/neoscroll.nvim",
+		opts = function()
+			require("configs.neoscroll")
+		end,
+	},
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {},
 	},
 }

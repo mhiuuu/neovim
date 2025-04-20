@@ -1,119 +1,137 @@
 local map = vim.keymap.set
 
-map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line during insert" })
-map("i", "<C-e>", "<End>", { desc = "move end of line during insert" })
-map("i", "<C-h>", "<Left>", { desc = "move left during insert" })
-map("i", "<C-l>", "<Right>", { desc = "move right during insert" })
-map("i", "<C-j>", "<Down>", { desc = "move down during insert" })
-map("i", "<C-k>", "<Up>", { desc = "move up during insert" })
+-- ╭──────────────────────────────╮
+-- │ Insert Mode Navigation Keys │
+-- ╰──────────────────────────────╯
+map("i", "<C-b>", "<ESC>^i", { desc = "Move to beginning of line" })
+map("i", "<C-e>", "<End>", { desc = "Move to end of line" })
+map("i", "<C-h>", "<Left>", { desc = "Move left" })
+map("i", "<C-l>", "<Right>", { desc = "Move right" })
+map("i", "<C-j>", "<Down>", { desc = "Move down" })
+map("i", "<C-k>", "<Up>", { desc = "Move up" })
+map("i", "<C-Right>", "<C-o>w", { desc = "Move forward one word" })
+map("i", "<C-Left>", "<C-o>b", { desc = "Move backward one word" })
 
-map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })
-map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
-map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
-map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
+-- ╭────────────────────────────╮
+-- │ Window Navigation (Normal) │
+-- ╰────────────────────────────╯
+map("n", "<C-h>", "<C-w>h", { desc = "Switch to left window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Switch to right window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Switch to below window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Switch to above window" })
 
-map({ "n", "v", "i" }, "<C-s>", "<cmd>w<CR>", { desc = "general save file" })
-map({ "n", "v", "i" }, "<C-q>", "<cmd>q!<CR>", { desc = "general quit file" })
-map({ "n", "v", "i" }, "<C-z>", "<cmd>u<CR>", { desc = "general undo changes" })
-map({ "n", "v", "i" }, "<C-a>", "ggVG", { desc = "general select all" })
--- map({ "n", "v", "i" }, "<C-V>", "+p", { desc = "general paste from system clipboard" })
-map("v", "<C-c>", "y", { desc = "general copy to system clipboard" })
-map({ "n", "v" }, "d", '"_d', { noremap = true })
+-- ╭──────────────────────────────╮
+-- │ General Editor Shortcuts     │
+-- ╰──────────────────────────────╯
+map({ "n", "v", "i" }, "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
+map({ "n", "v", "i" }, "<C-q>", "<cmd>q!<CR>", { desc = "Force quit file" })
+map({ "n", "v", "i" }, "<C-z>", "<cmd>u<CR>", { desc = "Undo changes" })
+map({ "n", "v" }, "<C-a>", "ggVG", { desc = "Select all" })
+map("v", "<C-c>", "y", { desc = "Copy to system clipboard" })
+
+-- ╭──────────────╮
+-- │ File Format  │
+-- ╰──────────────╯
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
-end, { desc = "general format file" })
+end, { desc = "Format current file" })
 
--- Split windows
+-- ╭────────────────────────────────────╮
+-- │ Split Window Management (Normal)   │
+-- ╰────────────────────────────────────╯
 map("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
 map("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
-map("n", "<leader>se", "<C-w>=", { desc = "Split Make windows equal size" })
-map("n", "<leader>sc", ":close<CR>", { desc = "Split Close current split window" })
+map("n", "<leader>se", "<C-w>=", { desc = "Equalize split sizes" })
+map("n", "<leader>sc", ":close<CR>", { desc = "Close current split" })
 
--- global lsp mappings
-map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
-
--- tabufline
-map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
-
+-- ╭────────────────────────────╮
+-- │ Buffer Management          │
+-- ╰────────────────────────────╯
+map("n", "<leader>b", "<cmd>enew<CR>", { desc = "Open new buffer" })
 map("n", "<tab>", function()
 	require("nvchad.tabufline").next()
-end, { desc = "buffer goto next" })
-
+end, { desc = "Next buffer" })
 map("n", "<S-tab>", function()
 	require("nvchad.tabufline").prev()
-end, { desc = "buffer goto prev" })
-
-map("n", "<leader>x", function()
+end, { desc = "Previous buffer" })
+map("n", "<leader>q", function()
 	require("nvchad.tabufline").close_buffer()
-end, { desc = "buffer close" })
+end, { desc = "Close buffer" })
 
--- Comment
-map("n", "<C-/>", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<C-/>", "gc", { desc = "toggle comment", remap = true })
-map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
+-- ╭────────────────────╮
+-- │ Comment Toggling   │
+-- ╰────────────────────╯
+map("n", "<C-/>", "gcc", { desc = "Toggle comment (normal)", remap = true })
+map("v", "<C-/>", "gc", { desc = "Toggle comment (visual)", remap = true })
 
--- nvimtree
-map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
-map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
+-- ╭────────────────────╮
+-- │ NvimTree Shortcuts │
+-- ╰────────────────────╯
+map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "Focus file explorer" })
 
--- telescope
-map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
-map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
-map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
-map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
-map("n", "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "telescope find in current buffer" })
-map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
-map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
-map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
-
-map("n", "<leader>th", function()
-	require("nvchad.themes").open()
-end, { desc = "telescope nvchad themes" })
-
+-- ╭────────────────────────────╮
+-- │ Telescope Search Shortcuts │
+-- ╰────────────────────────────╯
 map(
 	"n",
 	"<leader>ff",
 	"<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-	{ desc = "telescope find all files" }
+	{ desc = "Find files (all)" }
 )
+map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Find open buffers" })
+map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Help pages" })
+map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "Find marks" })
+map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "Find recent files" })
+map("n", "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Search in current buffer" })
+map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "Git commits" })
+map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "Git status" })
+map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "Pick hidden terminal" })
 
--- terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+-- ╭──────────────╮
+-- │ LSP & Tools  │
+-- ╰──────────────╯
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "Show diagnostics in loclist" })
+map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "Open NvCheatsheet" })
+map("n", "<leader>wK", "<cmd>WhichKey<CR>", { desc = "Show all keymaps" })
 
+map("n", "<leader>th", function()
+	require("nvchad.themes").open()
+end, { desc = "Open NvChad themes" })
+
+-- ╭────────────────────────────╮
+-- │ Terminal Shortcuts         │
+-- ╰────────────────────────────╯
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "Exit terminal mode" })
 map("n", "<leader>h", function()
 	require("nvchad.term").new({ pos = "sp" })
-end, { desc = "terminal new horizontal term" })
-
+end, { desc = "New horizontal terminal" })
 map("n", "<leader>v", function()
 	require("nvchad.term").new({ pos = "vsp" })
-end, { desc = "terminal new vertical term" })
+end, { desc = "New vertical terminal" })
 
-map("n", ":", "<cmd>FineCmdline<CR>", { desc = "terminal open quick float term" })
-
--- toggleable
+-- Toggleable terminals
 map({ "n", "t" }, "<A-v>", function()
 	require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm" })
-end, { desc = "terminal toggleable vertical term" })
+end, { desc = "Toggle vertical terminal" })
 
 map({ "n", "t" }, "<A-h>", function()
 	require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm" })
-end, { desc = "terminal toggleable horizontal term" })
+end, { desc = "Toggle horizontal terminal" })
 
 map({ "n", "t" }, "<A-i>", function()
 	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
-end, { desc = "terminal toggle floating term" })
+end, { desc = "Toggle floating terminal" })
 
--- multi cursors
-map({ "n", "i", "x" }, "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", { desc = "Multi cursor and move up" })
-map({ "n", "i", "x" }, "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", { desc = "Multi cursor and move down" })
-
--- Menu keymap
+-- ╭──────────────────────────────╮
+-- │ Custom Menu Integration     │
+-- ╰──────────────────────────────╯
 map("n", "<C-t>", function()
 	require("menu").open("default")
-end, { desc = "Open menu with default options" })
+end, { desc = "Open default menu" })
 
--- Mouse right-click menu integration
-map("n", "<RightMouse>", function()
+map({ "n", "i", "v" }, "<RightMouse>", function()
 	local options = vim.bo.filetype == "NvimTree" and "nvimtree" or "default"
 	require("menu").open(options, { mouse = true })
-end, { desc = "Open menu with context-specific options" })
+end, { desc = "Contextual right-click menu" })

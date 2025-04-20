@@ -21,7 +21,7 @@ M.setup = function()
 		formatters = {
 			my_formatter = {
 				command = "clang-format",
-				args = '--style="{BasedOnStyle: llvm, IndentWidth: 4}"',
+				args = '--style="{BasedOnStyle: llvm, IndentWidth: 4, ColumnLimit: 10000}"',
 			},
 		},
 	})
