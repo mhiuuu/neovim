@@ -33,7 +33,7 @@ map("v", "<C-c>", "y", { desc = "Copy to system clipboard" })
 -- │ File Format  │
 -- ╰──────────────╯
 map("n", "<leader>fm", function()
-	require("conform").format({ lsp_fallback = true })
+    require("conform").format({ lsp_fallback = true })
 end, { desc = "Format current file" })
 
 -- ╭────────────────────────────────────╮
@@ -48,14 +48,14 @@ map("n", "<leader>sc", ":close<CR>", { desc = "Close current split" })
 -- │ Buffer Management          │
 -- ╰────────────────────────────╯
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "Open new buffer" })
-map("n", "<tab>", function()
-	require("nvchad.tabufline").next()
+map("n", "<A-tab>", function()
+    require("nvchad.tabufline").next()
 end, { desc = "Next buffer" })
 map("n", "<S-tab>", function()
-	require("nvchad.tabufline").prev()
+    require("nvchad.tabufline").prev()
 end, { desc = "Previous buffer" })
 map("n", "<leader>q", function()
-	require("nvchad.tabufline").close_buffer()
+    require("nvchad.tabufline").close_buffer()
 end, { desc = "Close buffer" })
 
 -- ╭────────────────────╮
@@ -74,10 +74,10 @@ map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "Focus file explorer" }
 -- │ Telescope Search Shortcuts │
 -- ╰────────────────────────────╯
 map(
-	"n",
-	"<leader>ff",
-	"<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-	{ desc = "Find files (all)" }
+    "n",
+    "<leader>ff",
+    "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+    { desc = "Find files (all)" }
 )
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Find open buffers" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Help pages" })
@@ -97,7 +97,7 @@ map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "Open NvCheatsheet" })
 map("n", "<leader>wK", "<cmd>WhichKey<CR>", { desc = "Show all keymaps" })
 
 map("n", "<leader>th", function()
-	require("nvchad.themes").open()
+    require("nvchad.themes").open()
 end, { desc = "Open NvChad themes" })
 
 -- ╭────────────────────────────╮
@@ -105,33 +105,33 @@ end, { desc = "Open NvChad themes" })
 -- ╰────────────────────────────╯
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Exit terminal mode" })
 map("n", "<leader>h", function()
-	require("nvchad.term").new({ pos = "sp" })
+    require("nvchad.term").new({ pos = "sp" })
 end, { desc = "New horizontal terminal" })
 map("n", "<leader>v", function()
-	require("nvchad.term").new({ pos = "vsp" })
+    require("nvchad.term").new({ pos = "vsp" })
 end, { desc = "New vertical terminal" })
 
 -- Toggleable terminals
 map({ "n", "t" }, "<A-v>", function()
-	require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm" })
+    require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm" })
 end, { desc = "Toggle vertical terminal" })
 
 map({ "n", "t" }, "<A-h>", function()
-	require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm" })
+    require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm" })
 end, { desc = "Toggle horizontal terminal" })
 
 map({ "n", "t" }, "<A-i>", function()
-	require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
+    require("nvchad.term").toggle({ pos = "float", id = "floatTerm" })
 end, { desc = "Toggle floating terminal" })
 
 -- ╭──────────────────────────────╮
 -- │ Custom Menu Integration     │
 -- ╰──────────────────────────────╯
 map("n", "<C-t>", function()
-	require("menu").open("default")
+    require("menu").open("default")
 end, { desc = "Open default menu" })
 
 map({ "n", "i", "v" }, "<RightMouse>", function()
-	local options = vim.bo.filetype == "NvimTree" and "nvimtree" or "default"
-	require("menu").open(options, { mouse = true })
+    local options = vim.bo.filetype == "NvimTree" and "nvimtree" or "default"
+    require("menu").open(options, { mouse = true })
 end, { desc = "Contextual right-click menu" })
